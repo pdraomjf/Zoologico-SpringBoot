@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+
+    <script>
+        function validateForm() {
+            // Verifica se todos os campos estão preenchidos
+            var form = document.getElementById('formFichaNatalidade');
+            var inputs = form.querySelectorAll('input, select, textarea');
+            var isValid = true;
+
+            inputs.forEach(function(input) {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos corretamente.');
+            }
+
+            return isValid;
+        }
+    </script>
+
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h1>Editar Cuidados</h1>
+
+    <br>
+
+    <form id="formcuidadoDiario" th:action="@{/cuidado/alterar}" method="POST" th:object="${cuidadoDiario}" onsubmit="return validateForm()">
+        <input type="hidden" th:field="*{id}" />
+
+        Selecione a Animal:<br>
+        <select th:field="*{id_animal}">
+            <option th:each="animal : ${animais}" th:text="${animal.nome}" th:value="${animal.id}" th:selected="${animal.id} == *{id_animal}">Nome</option>
+        </select><br>
+        Altere a tarefa do animal:<br>
+        <textarea th:field="*{tarefaDiaria}" required></textarea><br>
+        Altere a data e hora:<br>
+        <input type="datetime-local" th:field="*{data}" required /><br><br>
+
+        <button type="submit">Alterar Dados</button>
+    </form>
+</div>
+
+</body>
+</html>

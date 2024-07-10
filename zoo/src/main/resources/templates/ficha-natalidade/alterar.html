@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+
+    <script>
+        function validateForm() {
+            var form = document.getElementById('formFichaNatalidade');
+            var inputs = form.querySelectorAll('input, select, textarea');
+            var isValid = true;
+
+            inputs.forEach(function(input) {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos corretamente.');
+            }
+
+            return isValid;
+        }
+    </script>
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h1>Alterar Ficha de Natalidade</h1>
+
+    <br>
+
+    <form id="formFichaNatalidade" th:action="@{/natalidade/alterar}" method="POST" th:object="${fichaNatalidade}" onsubmit="return validateForm()">
+        <input type="hidden" th:field="*{id}" />
+
+        Selecione o Pai:<br>
+        <select th:field="*{pai}">
+            <option th:each="animal : ${pai}" th:text="${animal.nome}" th:value="${animal.id}" th:selected="${animal.nome} == *{pai}">Nome</option>
+        </select><br>
+        Selecione a Mãe:<br>
+        <select th:field="*{mae}">
+            <option th:each="animal : ${mae}" th:text="${animal.nome}" th:value="${animal.id}" th:selected="${animal.nome} == *{mae}">Nome</option>
+        </select><br>
+        Estado de Saúde:<br>
+        <textarea th:field="*{estadoSaude}" required></textarea><br>
+        Observações:<br>
+        <textarea th:field="*{observacoes}" required></textarea><br>
+
+        <button type="submit">Alterar</button>
+    </form><br>
+
+    <div>
+        <a href="/natalidade"><button>Voltar</button></a>
+    </div>
+</div>
+
+</body>
+</html>

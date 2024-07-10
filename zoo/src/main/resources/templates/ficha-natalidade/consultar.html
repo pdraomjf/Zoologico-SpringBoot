@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h1>Consulta de Ficha de Natalidade</h1><br>
+
+    <div>
+        <span th:text="${message}"></span>
+    </div>
+
+    <h4>Ficha</h4>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Veterinário</th>
+                <th>Data de Nascimento</th>
+                <th>Mãe</th>
+                <th>Pai</th>
+                <th>Estado de Saúde</th>
+                <th>Observações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dado : ${ficha}">
+                <td th:text="${dado.veterinario.nome}"></td>
+                <td th:text="${dado.dataNascimento}"></td>
+                <td th:text="${dado.mae.nome}"></td>
+                <td th:text="${dado.pai.nome}"></td>
+                <td th:text="${dado.estadoSaude}"></td>
+                <td th:text="${dado.observacoes}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h4>Filhotes</h4>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Sexo</th>
+                <th>Peso de Nascimento (Kg)</th>
+                <th>Espécie</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dado : ${ficha.filhotes}">
+                <td th:text="${dado.nome}"></td>
+                <td th:text="${dado.sexo}"></td>
+                <td th:text="${dado.pesoNascimento}"></td>
+                <td th:text="${dado.especie}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div><br>
+
+    <div>
+        <a href="/natalidade"><button>Voltar</button></a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h1>Criação de Ficha de Natalidade</h1><br>
+
+    <div>
+        <span th:text="${message}"></span>
+    </div>
+
+    <h3>Selecione uma Espécie: </h3><br>
+
+    <li th:each="especie : ${especies}">
+        <a th:href="@{/natalidade/criar(especie=${especie})}" th:text="${especie}"></a>
+    </li>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h1>Dados do Animal</h1><br>
+
+    <h4>Info</h4>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Espécie</th>
+                <th>Sexo</th>
+                <th>Idade</th>
+                <th>Peso</th>
+                <th>Peso Nascimento</th>
+                <th>Data de Entrada</th>
+                <th>Data de Nascimento</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dado : ${animal}">
+                <td th:text="${dado.nome}"></td>
+                <td th:text="${dado.especie}"></td>
+                <td th:text="${dado.sexo}"></td>
+                <td th:text="${dado.idade}"></td>
+                <td th:text="${dado.peso}"></td>
+                <td th:text="${dado.pesoNascimento}">-</td>
+                <td th:text="${dado.dataEntrada}"></td>
+                <td th:text="${dado.dataNascimento}">-</td>
+            </tr>
+            </tbody>
+        </table>
+    </div><br>
+
+    <div>
+        <a href="/animal"><button>Voltar</button></a>
+    </div><br>
+</div>
+
+</body>
+</html>

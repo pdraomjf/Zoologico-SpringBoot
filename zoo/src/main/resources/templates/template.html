@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zoológico</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Zoológico</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_VETERINARIO')">
+                    <a class="nav-link" href="/natalidade">Ficha de Natalidade</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_CUIDADOR')">
+                    <a class="nav-link" href="/cuidado">Cuidados Diários</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
+                    <a class="nav-link" href="/administrador/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
+                    <a class="nav-link" href="/administrador">Operações Administrador</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
+                    <a class="nav-link" href="/veterinario">Operações Veterinário</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
+                    <a class="nav-link" href="/cuidador">Operações Cuidador</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
+                    <a class="nav-link" href="/animal">Operações Animal</a>
+                </li>
+                <li class="nav-item" sec:authorize="not isAuthenticated()">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" sec:authorize="isAuthenticated()">
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="POST">
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Sair</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main layout:fragment="main" class="flex-shrink-0">
+    <div class="container mt-5 pt-4 text-center">
+        <h4 class="mb-4">Descubra um mundo de maravilhas no coração do nosso zoológico!</h4>
+        <div sec:authorize="isAuthenticated()">
+            <h3>Seja bem vindo(a), <span th:text="${nome}"></span>!</h3>
+        </div>
+        <img src="/images/zoo-template.png" alt="BackGround Zoológico" class="img-fluid">
+    </div>
+</main>
+
+<footer class="footer bg-dark text-light text-center mt-auto py-3">
+    <div>Respeite e proteja os animais.</div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

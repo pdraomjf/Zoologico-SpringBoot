@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+
+    <script>
+        function generateFields() {
+            var numeroFilhotes = document.getElementById('numeroFilhotes').value;
+            var container = document.getElementById('filhoteFieldsContainer');
+
+            container.innerHTML = '';
+
+            for (var i = 0; i < numeroFilhotes; i++) {
+                var fieldset = document.createElement('fieldset');
+                fieldset.innerHTML = `
+                    <legend>Filhote ${i + 1}</legend>
+                    Nome:<br>
+                    <input type="text" name="filhotes[${i}].nome" required><br>
+                    Sexo:<br>
+                    <select name="filhotes[${i}].sexo">
+                        <option value="masculino">Masculino</option>
+                        <option value="feminino">Feminino</option>
+                    </select><br>
+                    Peso (Kg):<br>
+                    <input type="number" step="0.01" name="filhotes[${i}].pesoNascimento" required><br>
+                `;
+                container.appendChild(fieldset);
+            }
+        }
+
+        function validateForm() {
+            // Verifica se todos os campos estão preenchidos
+            var form = document.getElementById('formFichaNatalidade');
+            var inputs = form.querySelectorAll('input, select, textarea');
+            var isValid = true;
+
+            inputs.forEach(function(input) {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos corretamente.');
+            }
+
+            return isValid;
+        }
+    </script>
+
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h1>Criação de Ficha de Natalidade</h1>
+
+    <br>
+
+    <form id="formFichaNatalidade" th:action="@{/natalidade/criar}" method="POST" th:object="${fichaNatalidade}" onsubmit="return validateForm()">
+        Selecione o Pai:<br>
+        <select th:field="*{pai}">
+            <option th:each="animal : ${pai}" th:text="${animal.nome}" th:value="${animal.id}">Nome</option>
+        </select><br>
+        Selecione a Mãe:<br>
+        <select th:field="*{mae}">
+            <option th:each="animal : ${mae}" th:text="${animal.nome}" th:value="${animal.id}">Nome</option>
+        </select><br>
+        Estado de Saúde:<br>
+        <textarea th:field="*{estadoSaude}" required></textarea><br>
+        Observações:<br>
+        <textarea th:field="*{observacoes}" required></textarea><br>
+
+        Qual a quantidade de filhotes?<br>
+        <input type="number" name="numeroFilhotes" id="numeroFilhotes" onchange="generateFields()" required><br>
+        <div id="filhoteFieldsContainer"></div><br>
+
+        <button type="submit">Registrar</button>
+    </form><br>
+</div>
+
+</body>
+</html>

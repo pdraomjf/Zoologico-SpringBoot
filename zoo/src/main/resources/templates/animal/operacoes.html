@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h3>Bem vindo a Área de Operações do Animal</h3>
+
+    <div>
+        <a href="/animal/criar"><button>Registrar Animal</button></a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(lista)}">
+        <p>Nenhum dado disponível.</p>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(lista)}">
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Espécie</th>
+                <th>Sexo</th>
+                <th>Idade</th>
+                <th>Peso</th>
+                <th>Data de Entrada</th>
+                <th colspan="3">Operações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dado : ${lista}">
+                <td th:text="${dado.nome}"></td>
+                <td th:text="${dado.especie}"></td>
+                <td th:text="${dado.sexo}"></td>
+                <td th:text="${dado.idade}"></td>
+                <td th:text="${dado.peso}"></td>
+                <td th:text="${dado.dataEntrada}"></td>
+                <td><a th:href="@{/animal/consultar(id=${dado.id})}"><button>Consultar</button></a></td>
+                <td><a th:href="@{/animal/excluir(id=${dado.id})}"><button>Excluir</button></a></td>
+                <td><a th:href="@{/animal/alterar(id=${dado.id})}"><button>Alterar</button></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <span th:text="${message}"></span>
+    </div>
+
+</div>
+
+</body>
+</html>

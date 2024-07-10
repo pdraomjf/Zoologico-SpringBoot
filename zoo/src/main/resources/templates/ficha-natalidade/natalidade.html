@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz'/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h3>Bem vindo a área de Ficha de Natalidade</h3>
+
+    <div>
+        <a href="/natalidade/especie"><button>Criar Ficha de Natalidade</button></a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(lista)}">
+        <p>Nenhum dado disponível.</p>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(lista)}">
+        <table>
+            <thead>
+            <tr>
+                <th>Veterinário</th>
+                <th>Data de Nascimento</th>
+                <th>Mãe</th>
+                <th>Pai</th>
+                <th>Estado de Saúde</th>
+                <th>Observações</th>
+                <th colspan="2">Operações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dado : ${lista}">
+                <td th:text="${dado.veterinario.nome}"></td>
+                <td th:text="${dado.dataNascimento}"></td>
+                <td th:text="${dado.mae.nome}"></td>
+                <td th:text="${dado.pai.nome}"></td>
+                <td th:text="${dado.estadoSaude}"></td>
+                <td th:text="${dado.observacoes}"></td>
+                <td><a th:href="@{/natalidade/consultar(id=${dado.id})}"><button>Consultar</button></a></td>
+                <td><a th:href="@{/natalidade/alterar(id=${dado.id})}"><button>Alterar</button></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <span th:text="${message}"></span>
+    </div>
+</div>
+
+</body>
+</html>

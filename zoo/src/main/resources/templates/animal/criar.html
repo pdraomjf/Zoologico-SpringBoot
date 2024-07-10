@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+
+    <script>
+        function validateForm() {
+            // Verifica se todos os campos estão preenchidos
+            var form = document.getElementById('formFichaNatalidade');
+            var inputs = form.querySelectorAll('input');
+            var isValid = true;
+
+            inputs.forEach(function(input) {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos corretamente.');
+            }
+
+            return isValid;
+        }
+    </script>
+
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h1>Adicionar Animal</h1>
+
+    <br>
+
+    <form id="formUser" th:action="@{/animal/criar}" method="POST" th:object="${animal}" onsubmit="return validateForm()">
+        Nome<br>
+        <input type="text" th:field="*{nome}" required><br>
+        Espécie<br>
+        <input type="text" th:field="*{especie}" required><br>
+        Sexo<br>
+        <select th:field="*{sexo}">
+            <option value="masculino">Masculino</option>
+            <option value="feminino">Feminino</option>
+        </select><br>
+        Idade<br>
+        <input type="number" th:field="*{idade}" required><br>
+        Peso<br>
+        <input type="number" th:field="*{peso}" step="0.01" required><br><br>
+
+
+        <button type="submit">Registrar</button>
+    </form><br><br>
+
+    <div>
+        <a href="/animal"><button>Voltar</button></a>
+    </div><br>
+</div>
+
+</body>
+</html>

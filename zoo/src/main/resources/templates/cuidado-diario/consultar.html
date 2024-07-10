@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoológico</title>
+</head>
+<body>
+
+<div layout:fragment="main" class="container mt-5 pt-5">
+    <h1>Consulta de Cuidado Diário</h1><br>
+
+    <div>
+        <span th:text="${message}"></span>
+    </div>
+
+    <h4>Cuidado Diário</h4>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Cuidador</th>
+                <th>Data</th>
+                <th>Animal</th>
+                <th>Tarefa Diária</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dado : ${dados}">
+                <td th:text="${dado.cuidador.nome}"></td>
+                <td th:text="${dado.data}"></td>
+                <td th:text="${dado.animal.nome}"></td>
+                <td th:text="${dado.tarefaDiaria}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div><br>
+
+    <h4>Cuidador</h4>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Último Acesso</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dado : ${dados}">
+                <td th:text="${dado.cuidador.nome}"></td>
+                <td th:text="${dado.cuidador.dataCriacao}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div><br>
+
+    <h4>Animal</h4>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Espécie</th>
+                <th>Sexo</th>
+                <th>Idade</th>
+                <th>Peso (Kg)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dado : ${dados}">
+                <td th:text="${dado.animal.nome}"></td>
+                <td th:text="${dado.animal.especie}"></td>
+                <td th:text="${dado.animal.sexo}"></td>
+                <td th:text="${dado.animal.idade}"></td>
+                <td th:text="${dado.animal.peso}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div><br>
+
+    <div>
+        <a href="/cuidado"><button>Voltar</button></a>
+    </div><br>
+</div>
+
+</body>
+</html>
