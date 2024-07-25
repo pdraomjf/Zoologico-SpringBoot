@@ -2,7 +2,7 @@ package com.zoologico.zoo.controller;
 
 import com.zoologico.zoo.model.Administrador;
 import com.zoologico.zoo.model.User;
-import com.zoologico.zoo.model.dao.AdministradorDAO;
+import com.zoologico.zoo.model.dao.*;
 import com.zoologico.zoo.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +26,21 @@ public class AdministradorController {
     AdministradorDAO administradorDAO;
 
     @Autowired
+    AnimalDAO animalDAO;
+
+    @Autowired
+    CuidadorDAO cuidadorDAO;
+
+    @Autowired
+    VeterinarioDAO veterinarioDAO;
+
+    @Autowired
+    FichaNatalidadeDAO fichaNatalidadeDAO;
+
+    @Autowired
+    CuidadoDiarioDAO cuidadoDiarioDAO;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @PreAuthorize("hasRole('ADMINISTRADOR')")
@@ -39,7 +54,21 @@ public class AdministradorController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard() {
+    public String dashboard(Model model) {
+        int totalAnimais = animalDAO.findAll().size();
+        int totalCuidador = cuidadorDAO.findAll().size();
+        int totalVeterinario = veterinarioDAO.findAll().size();
+        int totalFichaNatalidade = fichaNatalidadeDAO.findAll().size();
+        int totalCuidadoDiario = cuidadoDiarioDAO.findAll().size();
+        int totalAdministrador = administradorDAO.findAll().size();
+
+        model.addAttribute("totalAnimais", totalAnimais);
+        model.addAttribute("totalCuidador", totalCuidador);
+        model.addAttribute("totalVeterinario", totalVeterinario);
+        model.addAttribute("totalFichaNatalidade", totalFichaNatalidade);
+        model.addAttribute("totalCuidadoDiario", totalCuidadoDiario);
+        model.addAttribute("totalAdministrador", totalAdministrador);
+
         return "dashboard";
     }
 

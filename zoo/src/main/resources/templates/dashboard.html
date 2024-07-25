@@ -13,6 +13,33 @@
 <div layout:fragment="main" class="container mt-5 pt-5">
     <h3>Dashboard</h3>
 
+    <div>
+        <div>
+            <h6>Total de Animais</h6>
+            <p th:text="${totalAnimais}"></p>
+        </div>
+        <div>
+            <h6>Total de Cuidadores</h6>
+            <p th:text="${totalCuidador}"></p>
+        </div>
+        <div>
+            <h6>Total de Veterinários</h6>
+            <p th:text="${totalVeterinario}"></p>
+        </div>
+        <div>
+            <h6>Total de Fichas de Natalidade</h6>
+            <p th:text="${totalFichaNatalidade}"></p>
+        </div>
+        <div>
+            <h6>Total de Cuidados Diários</h6>
+            <p th:text="${totalCuidadoDiario}"></p>
+        </div>
+        <div>
+            <h6>Total de Administradores</h6>
+            <p th:text="${totalAdministrador}"></p>
+        </div>
+    </div>
+
 </div>
 
 </body>
